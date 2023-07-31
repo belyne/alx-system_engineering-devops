@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # Define the headers for the output
 echo "USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND"
