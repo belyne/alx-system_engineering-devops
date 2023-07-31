@@ -4,4 +4,4 @@
 echo "USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND"
 
 # Use ps command to list all processes and their details
-ps -eo user,pid,%cpu,%mem,vsz,rss,tty,stat,start,time,comm --forest | head -50
+ps -eo user,pid,%cpu,%mem,vsz,rss,tty,stat,start,time,comm --forest
