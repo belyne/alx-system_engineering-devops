@@ -1,31 +1,29 @@
 #!/usr/bin/env ruby
 
-def extract_data(log_line)
-  # Regular expressions to extract the sender, receiver, and flags from the log line
-  sender_regex = /\[from:(.*?)\]/
-  receiver_regex = /\[to:(.*?)\]/
-  flags_regex = /\[flags:(.*?)\]/
-
-  sender = log_line[sender_regex, 1]
-  receiver = log_line[receiver_regex, 1]
-  flags = log_line[flags_regex, 1]
-
+# Function to extract sender, receiver, and flags from the log message
+def extract_data(log_message)
+  sender = log_message.scan(/\[from:(\S+)\]/).flatten.first
+  receiver = log_message.scan(/\[to:(\S+)\]/).flatten.first
+  flags = log_message.scan(/\[flags:(.*?)\]/).flatten.first
   "#{sender},#{receiver},#{flags}"
 end
 
-# Accept one argument from the command line: the log file path
-if ARGV.length != 1
-  puts "Usage: #{$PROGRAM_NAME} <log_file>"
-  exit 1
+# Check if the log file path is provided as a command-line argument
+if ARGV.empty?
+  puts "Usage: #{$PROGRAM_NAME} <log_file_path>"
+  exit(1)
 end
 
-# Read the log file
+# Read log file and process each line
+def process_log_file(file_path)
+  File.open(file_path).each do |line|
+    if line =~ /Receive SMS|Sent SMS/
+      result = extract_data(line)
+      puts result unless result.empty? # Only print if there's a valid result
+    end
+  end
+end
+
+# Execute the script with the provided log file path
 log_file_path = ARGV[0]
-log_data = File.read(log_file_path)
-
-# Process each log line and extract the required data
-log_lines = log_data.split("\n")
-log_lines.each do |log_line|
-  result = extract_data(log_line)
-  puts result unless result.empty?
-end
+process_log_file(log_file_path)
