@@ -2,7 +2,7 @@
 
 def match_school(text)
   # Regular expression to match "School" in the given text
-  regex = /School/
+  regex = /hbt+n/
 
   # Use the `scan` method to find all occurrences of the regex pattern in the text
   matches = text.scan(regex).join
