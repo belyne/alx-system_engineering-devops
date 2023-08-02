@@ -1,24 +1,16 @@
-#!/usr/bin/env bash
-# This script stops the 4-to_infinity_and_beyond process.
+#!/bin/env bash
 
-# Run the 4-to_infinity_and_beyond script in the background
+# Start the 4-to_infinity_and_beyond process in the background
 ./4-to_infinity_and_beyond &
 
-# Get the PID of the last background process executed
+# Capture the PID of the background process
 PID=$!
 
-# Function to handle SIGTERM signal and terminate the process
-function terminate_process {
-  echo "Terminated"
-  kill -SIGINT "$PID"
-  exit 0
-}
+# Wait for a moment to let the process start running
+sleep 2
 
-# Register the SIGTERM signal handler
-trap terminate_process SIGTERM
+# Stop the 4-to_infinity_and_beyond process using kill
+kill $PID
 
-# Wait for user input to stop the process
-read -p "Press Enter to stop the process: "
-
-# If the user presses Enter, terminate the process
-terminate_process
+# Print a message to indicate that the process has been terminated
+echo "Terminated"
