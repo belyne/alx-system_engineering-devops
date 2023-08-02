@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
-def match_school(text)
-  # Regular expression to match "School" as a whole word in the given text
-  regex = /\bSchool\b/
+def match_repetition_token(text)
+  # Regular expression to match the patterns 'hbbn', 'hbttttttttttn', or 'hbtn' in the given text
+  regex = /hb+n|hbt+n/
 
   # Use the `scan` method to find all occurrences of the regex pattern in the text
   matches = text.scan(regex).join
@@ -17,5 +17,5 @@ if ARGV.length != 1
   exit 1
 end
 
-# Call the match_school method with the provided argument
-match_school(ARGV[0])
+# Call the match_repetition_token method with the provided argument
+match_repetition_token(ARGV[0])
