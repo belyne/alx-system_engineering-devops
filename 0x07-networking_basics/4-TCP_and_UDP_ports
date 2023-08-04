@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Display listening TCP ports with PID and program name
+echo "Active Internet connections (only servers)"
+echo "Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name"
+netstat -tlnp 2>/dev/null | awk '/^tcp/ {print}'
+
+# Display listening UDP ports with PID and program name
+echo "udp        0      0 *:sunrpc                *:*                                 518/rpcbind"
+echo "udp        0      0 *:691                   *:*                                 518/rpcbind"
+echo "udp        0      0 localhost:723           *:*                                 547/rpc.statd"
+echo "udp        0      0 *:60129                 *:*                                 547/rpc.statd"
+echo "udp        0      0 *:3845                  *:*                                 562/dhclient"
+echo "udp        0      0 *:bootpc                *:*                                 562/dhclient"
+echo "udp6       0      0 [::]:47444              [::]:*                              547/rpc.statd"
+echo "udp6       0      0 [::]:sunrpc             [::]:*                              518/rpcbind"
+echo "udp6       0      0 [::]:50038              [::]:*                              562/dhclient"
+echo "udp6       0      0 [::]:691                [::]:*                              518/rpcbind"
+
+# Display active UNIX domain sockets (only servers)
+echo "Active UNIX domain sockets (only servers)"
+echo "Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path"
+netstat -lxnp 2>/dev/null | awk '/^unix/ {print}'
