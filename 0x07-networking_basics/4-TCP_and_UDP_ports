@@ -1,23 +1,35 @@
 #!/usr/bin/env bash
 
-# Display listening TCP ports with PID and program name
+# Display listening ports and program names
+
+# Check if running with sudo/root privileges
+if [[ $EUID -ne 0 ]]; then
+  echo "Please run the script as root or with sudo."
+  exit 1
+fi
+
+# Get listening sockets
+netstat_output=$(netstat -tlnp)
+
+# Filter and format the output
+formatted_output=$(echo "$netstat_output" | awk '$6 == "LISTEN" {print $1, $4, $7}' | sed 's/.*://')
+
+# Print the header
 echo "Active Internet connections (only servers)"
-echo "Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name"
-netstat -tlnp 2>/dev/null | awk '/^tcp/ {print}'
+echo "Proto Recv-Q Send-Q Local Address           PID/Program name"
 
-# Display listening UDP ports with PID and program name
-echo "udp        0      0 *:sunrpc                *:*                                 518/rpcbind"
-echo "udp        0      0 *:691                   *:*                                 518/rpcbind"
-echo "udp        0      0 localhost:723           *:*                                 547/rpc.statd"
-echo "udp        0      0 *:60129                 *:*                                 547/rpc.statd"
-echo "udp        0      0 *:3845                  *:*                                 562/dhclient"
-echo "udp        0      0 *:bootpc                *:*                                 562/dhclient"
-echo "udp6       0      0 [::]:47444              [::]:*                              547/rpc.statd"
-echo "udp6       0      0 [::]:sunrpc             [::]:*                              518/rpcbind"
-echo "udp6       0      0 [::]:50038              [::]:*                              562/dhclient"
-echo "udp6       0      0 [::]:691                [::]:*                              518/rpcbind"
+# Print the listening sockets
+echo "$formatted_output"
 
-# Display active UNIX domain sockets (only servers)
+# Print a separator
+echo
+
+# Print the header for UNIX domain sockets
 echo "Active UNIX domain sockets (only servers)"
 echo "Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path"
-netstat -lxnp 2>/dev/null | awk '/^unix/ {print}'
+
+# Get listening UNIX domain sockets
+unix_output=$(netstat -pln --unix | awk '$6 == "LISTEN" {print $1, $9}')
+
+# Print the listening UNIX domain sockets
+echo "$unix_output"
