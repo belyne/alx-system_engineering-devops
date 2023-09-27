@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# This script installs the nginx web server.
+
+# Update and install nginx
+apt-get update -y
+apt-get install nginx -y
+
+# Ensure nginx is listening on port 80
+sed -i 's/listen\s*80;/listen 80;/g' /etc/nginx/sites-available/default
+
+# Restart nginx
+service nginx restart
