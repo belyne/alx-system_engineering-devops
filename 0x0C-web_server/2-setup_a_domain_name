@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# This script automates the process of setting up a domain name and configuring DNS records.
+
+# Step 1: Get a Domain Name
+# In this step, you would manually go to a domain registrar's website and search for an available domain.
+
+# Step 2: Register the Domain
+# This step involves registering the chosen domain. Since this is a manual process, it's not automated in the script.
+
+# Step 3: Access DNS Management
+# After registering the domain, you'll need to access the DNS management section of the registrar's website.
+
+# Step 4: Add an A Record
+# This step adds an A record to point the domain to the server's IP address.
+
+# Define variables
+domain="example.tech"        # Replace with your chosen domain name
+ip_address="192.168.1.1"     # Replace with your server's actual IP address
+
+# Log into the DNS management section (Manual step)
+
+# Add an A record
+echo "Adding A record for $domain..."
+# The following command assumes you are using a command-line tool like 'nsupdate' or similar.
+# Replace it with the actual command provided by your domain registrar.
+nsupdate -v <<END
+server <DNS_SERVER_IP>
+update add $domain 86400 A $ip_address
+send
+END
+
+# Step 5: Save Changes
+# This step usually involves clicking a "Save" or "Submit" button on the registrar's website.
+# Since it's a manual step, it's not automated in the script.
+
+# Step 6: Verify DNS Configuration
+# You can use the 'dig' command to verify the DNS configuration.
+echo "Verifying DNS configuration..."
+dig $domain
+
+# Step 7: Update Project Website URL (Manual step)
+
+echo "Domain name setup complete!"
+
+# Note: Some steps are manual and require interaction with the registrar's website, so they are not automated in this script.
