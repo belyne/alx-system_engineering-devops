@@ -1,27 +1,7 @@
 #!/usr/bin/env bash
-<<<<<<< HEAD
-# This script installs the nginx web server.
-
-# Update and install nginx
-apt-get update -y
-apt-get install nginx -y
-
-# Ensure nginx is listening on port 80
-sed -i 's/listen\s*80;/listen 80;/g' /etc/nginx/sites-available/default
-
-# Restart nginx
-service nginx restart
-=======
-# This script installs nginx web server on an Ubuntu machine.
-
-# Update package list and install nginx
-sudo apt-get update -y
-sudo apt-get install nginx -y
-
-# Check if nginx is installed and running
-if systemctl is-active --quiet nginx; then
-    echo "Nginx installed and running."
-else
-    echo "Error: Nginx installation or startup failed."
-fi
->>>>>>> ee8ba18251e54b8bc657ff5eeeaca2f81429d679
+# Installs nginx server
+apt-get update
+apt-get -y install nginx
+ufw allow 'Nginx HTTP'
+echo "Hello World!" > /var/www/html/index.html
+service nginx start
