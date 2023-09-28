@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+<<<<<<< HEAD
 # This script configures Nginx for a 301 redirect.
 
 # Create a custom configuration file
@@ -11,3 +12,19 @@ ln -s /etc/nginx/sites-available/redirect_me /etc/nginx/sites-enabled/
 
 # Restart nginx
 service nginx restart
+=======
+# This script configures Nginx to perform a 301 redirect from /redirect_me to another page.
+
+# Create a temporary configuration file
+echo "location /redirect_me {
+    return 301 https://www.example.com;
+}" | sudo tee /etc/nginx/sites-available/temp_redirect
+
+# Link the temporary configuration file
+sudo ln -s /etc/nginx/sites-available/temp_redirect /etc/nginx/sites-enabled/
+
+# Reload Nginx to apply changes
+sudo nginx -s reload
+
+echo "Redirection configured successfully."
+>>>>>>> ee8ba18251e54b8bc657ff5eeeaca2f81429d679

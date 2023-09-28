@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/usr/bin/env bash
 # This script automates the process of setting up a domain name and configuring DNS records.
 
@@ -43,3 +44,6 @@ dig $domain
 echo "Domain name setup complete!"
 
 # Note: Some steps are manual and require interaction with the registrar's website, so they are not automated in this script.
+=======
+belyne.tech
+>>>>>>> ee8ba18251e54b8bc657ff5eeeaca2f81429d679
