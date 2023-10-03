@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Install and configure HAProxy on lb-01 server
+
+# Update package lists and install HAProxy
+sudo apt-get update
+sudo apt-get -y install haproxy
+
+# Configure HAProxy
+haproxy_config="/etc/haproxy/haproxy.cfg"
+backup_config="/etc/haproxy/haproxy.cfg.bak"
+
+# Backup the original configuration file
+sudo cp "$haproxy_config" "$backup_config"
+
+# Define HAProxy configuration
+cat <<EOL | sudo tee "$haproxy_config"
+frontend belyne-frontend
+    bind *:80
+    mode http
+    default_backend ehoneah-backend
+
+backend belyne-backend
+    balance roundrobin
+    server 306475-web-01 35.168.3.97-web-01:80 check
+    server 306475-web-02 54.160.111.160-web-02:80 check
+EOL
+
+# Enable HAProxy to be started by init script
+echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+
+# Restart HAProxy service
+sudo service haproxy restart
