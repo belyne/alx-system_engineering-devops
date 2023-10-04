@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # This script fixes the Nginx port 80 issue.
 
-sed -i 's/80 default_server/81/' /etc/nginx/sites-available/default
-service nginx stop
-service nginx start
+sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
+service nginx restart
+pkill -o nginx
