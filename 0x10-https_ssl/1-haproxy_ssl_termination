@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+## Please ensure you have certbot installed and HAProxy 1.5 or higher installed
+
+# Step 1: Create SSL certificate using certbot
+certbot certonly --standalone -d www.belyne.tech
+
+# Step 2: Update HAProxy configuration in /etc/haproxy/haproxy.cfg
+
+# Add the following lines in the frontend section:
+#   bind *:443 ssl crt /etc/letsencrypt/live/www.holberton.online/fullchain.pem
+#   mode http
+
+# Example:
+# frontend myfrontend
+#   bind *:80
+#   bind *:443 ssl crt /etc/letsencrypt/live/www.holberton.online/fullchain.pem
+#   mode http
+
+# Step 3: Restart HAProxy
+sudo systemctl restart haproxy
+
+# Step 4: Verify SSL termination
+curl https://www.belyne.tech
