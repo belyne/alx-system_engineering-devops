@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Connect to web-01
+ssh ubuntu@35.168.3.97 << EOF
+
+# Install UFW if not already installed
+sudo apt-get update
+sudo apt-get install -y ufw
+
+# Configure UFW
+sudo ufw default deny incoming
+sudo ufw allow 22/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+
+# Enable UFW
+sudo ufw enable
+
+# Show UFW status
+sudo ufw status
+
+EOF
