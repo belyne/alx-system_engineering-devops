@@ -1,0 +1,24 @@
+# Replica Server Configuration
+
+[mysqld]
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+datadir         = /var/lib/mysql
+log-error       = /var/log/mysql/error.log
+# By default, only connections from localhost are accepted.
+# bind-address   = 127.0.0.1
+
+# Server ID uniquely identifies this server in a replication setup.
+server-id       = 2
+
+# This enables binary logging, which is crucial for replication.
+log_bin         = /var/log/mysql/mysql-bin.log
+
+# Disabling symbolic-links is recommended to prevent security risks.
+symbolic-links  = 0
+
+# Specifies which database(s) to log in the binary log.
+binlog_do_db    = tyrell_corp
+
+# Relay log is used in replication. It stores the events received from the master before they are executed on the slave.
+relay-log       = /var/log/mysql/mysql-relay-bin.log
