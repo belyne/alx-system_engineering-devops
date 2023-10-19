@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 # This script configures Nginx to listen on port 80.
-# How to solved it: delete the existing ../sites-enabled/default and replace it with a copy of
-# ../sites-available/default. You do that by creating a symbolic link.
-# The flag -s creates a symbolic link, -f deletes the existing file and replaces it
-# modify Nginx configuration files or restart the service.
-sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-# Restart Nginx
-sudo service restart nginx
+
+# Update Nginx configuration to listen on port 80
+sed -i 's/listen\s*\(.*\);/listen 80;/g' /etc/nginx/sites-available/default
+
+# Restart Nginx service
+service nginx restart
