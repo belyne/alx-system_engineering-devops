@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# This script provides a concise fix to configure Nginx to run as nginx user.
+
+# Update Nginx configuration to run as nginx user
+sed -i 's/user www-data;/user nginx;/' /etc/nginx/nginx.conf
+
+# Reload Nginx for changes to take effect
+service nginx reload
