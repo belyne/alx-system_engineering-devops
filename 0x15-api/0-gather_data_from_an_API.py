@@ -1,39 +1,35 @@
 #!/usr/bin/python3
-"""
-This script retrieves and displays an employee's
-TODO list progress from a given API.
-"""
+"""Accessing a REST API for todo lists of employees"""
 
 import requests
 import sys
 
-if __name__ == "__main__":
-    # Check if the correct number of arguments is provided
+
+if __name__ == '__main__':
     if len(sys.argv) != 2:
         print("Usage: {} <employee_id>".format(sys.argv[0]))
         sys.exit(1)
 
-    # Get the employee ID from the command line arguments
-    employee_id = sys.argv[1]
+    employeeId = sys.argv[1]
+    baseUrl = "https://jsonplaceholder.typicode.com/users"
+    url = baseUrl + "/" + employeeId
 
-    # Make a request to the API to get user info
-    user_response = requests.get(
-        'https://jsonplaceholder.typicode.com/users/{}'.format(employee_id))
-    user_info = user_response.json()
+    response = requests.get(url)
+    employeeName = response.json().get('name')
 
-    # Make a request to the API to get user's TODO list
-    todo_response = requests.get(
-        'https://jsonplaceholder.typicode.com/todos?userId={}'.format(
-            employee_id))
-    todos = todo_response.json()
+    todoUrl = url + "/todos"
+    response = requests.get(todoUrl)
+    tasks = response.json()
+    done = 0
+    done_tasks = []
 
-    # Calculate the number of completed tasks
-    completed_tasks = [task for task in todos if task['completed']]
-    num_completed_tasks = len(completed_tasks)
-    total_tasks = len(todos)
+    for task in tasks:
+        if task.get('completed'):
+            done_tasks.append(task)
+            done += 1
 
-    # Display employee TODO list progress
-    print("Employee {} is done with tasks({}/{}):".format(
-        user_info['name'], num_completed_tasks, total_tasks))
-    for task in completed_tasks:
-        print("\t", task['title'])
+    print("Employee {} is done with tasks({}/{}):"
+          .format(employeeName, done, len(tasks)))
+
+    for task in done_tasks:
+        print("\t {}".format(task.get('title')))
