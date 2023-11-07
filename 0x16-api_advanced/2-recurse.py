@@ -5,19 +5,23 @@
 
 import requests
 
+
 def recurse(subreddit, hot_list=[], after=None):
     """
-    Recursively queries the Reddit API and returns a list of hot articles' titles.
+    Recursively queries the Reddit API and returns
+    a list of hot articles' titles.
 
     Args:
         subreddit (str): The name of the subreddit.
-        hot_list (list): The list to store the titles (default is an empty list).
+        hot_list (list): The list to store the titles
+        (default is an empty list).
         after (str): The 'after' parameter for pagination (default is None).
 
     Returns:
         list: A list containing the titles of hot articles.
     """
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=100&after={after}"
+    url = f
+    "https://www.reddit.com/r/{subreddit}/hot.json?limit=100&after={after}"
     headers = {'User-Agent': 'Mozilla/5.0'}  # Setting a custom User-Agent
 
     response = requests.get(url, headers=headers)
@@ -36,6 +40,7 @@ def recurse(subreddit, hot_list=[], after=None):
             return hot_list
     else:
         return None
+
 
 if __name__ == '__main__':
     recurse = __import__('2-recurse').recurse

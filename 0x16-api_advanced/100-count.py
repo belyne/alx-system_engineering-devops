@@ -5,6 +5,7 @@
 
 import requests
 
+
 def count_words(subreddit, word_list, hot_list=[], after=None):
     """
     Recursively queries the Reddit API, parses titles, and counts keywords.
@@ -18,7 +19,8 @@ def count_words(subreddit, word_list, hot_list=[], after=None):
     Returns:
         None
     """
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=100&after={after}"
+    url = f
+    "https://www.reddit.com/r/{subreddit}/hot.json?limit=100&after={after}"
     headers = {'User-Agent': 'Mozilla/5.0'}  # Setting a custom User-Agent
 
     response = requests.get(url, headers=headers)
@@ -38,6 +40,7 @@ def count_words(subreddit, word_list, hot_list=[], after=None):
     else:
         return None
 
+
 def count_keywords(word_list, hot_list):
     """
     Count occurrences of keywords in the list of titles.
@@ -54,17 +57,21 @@ def count_keywords(word_list, hot_list):
     for title in hot_list:
         for word in word_list:
             if word.lower() in title.lower():
-                keyword_count[word.lower()] = keyword_count.get(word.lower(), 0) + 1
+                keyword_count[word.lower()] =
+            keyword_count.get(word.lower(), 0) + 1
 
-    sorted_keywords = sorted(keyword_count.items(), key=lambda x: (-x[1], x[0]))
+    sorted_keyword = sorted(keyword_count.items(), key=lambda x: (-x[1], x[0]))
 
-    for keyword, count in sorted_keywords:
+    for keyword, count in sorted_keyword:
         print(f"{keyword}: {count}")
+
 
 if __name__ == '__main__':
     count_words = __import__('100-count').count_words
     if len(sys.argv) < 3:
-        print("Usage: {} <subreddit> <list of keywords>".format(sys.argv[0]))
-        print("Ex: {} programming 'python java javascript'".format(sys.argv[0]))
+        print(
+                "Usage: {} <subreddit> <list of keywords>".format(sys.argv[0]))
+        print(
+            "Ex: {} programming 'python java javascript'".format(sys.argv[0]))
     else:
         result = count_words(sys.argv[1], [x for x in sys.argv[2].split()])

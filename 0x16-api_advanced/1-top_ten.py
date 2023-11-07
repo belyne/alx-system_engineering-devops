@@ -5,6 +5,7 @@
 
 import requests
 
+
 def top_ten(subreddit):
     """
     Queries the Reddit API and prints the titles of the first 10 hot posts.
@@ -27,6 +28,7 @@ def top_ten(subreddit):
             print(post['data']['title'])
     else:
         print(None)
+
 
 if __name__ == '__main__':
     top_ten = __import__('1-top_ten').top_ten
