@@ -19,8 +19,7 @@ def count_words(subreddit, word_list, hot_list=[], after=None):
     Returns:
         None
     """
-    url = f
-    "https://www.reddit.com/r/{subreddit}/hot.json?limit=100&after={after}"
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=100&after={after}"
     headers = {'User-Agent': 'Mozilla/5.0'}  # Setting a custom User-Agent
 
     response = requests.get(url, headers=headers)
@@ -57,8 +56,7 @@ def count_keywords(word_list, hot_list):
     for title in hot_list:
         for word in word_list:
             if word.lower() in title.lower():
-                keyword_count[word.lower()] =
-            keyword_count.get(word.lower(), 0) + 1
+                keyword_count[word.lower()] = keyword_count.get(word.lower(), 0) + 1
 
     sorted_keyword = sorted(keyword_count.items(), key=lambda x: (-x[1], x[0]))
 

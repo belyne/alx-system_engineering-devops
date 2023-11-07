@@ -20,8 +20,7 @@ def recurse(subreddit, hot_list=[], after=None):
     Returns:
         list: A list containing the titles of hot articles.
     """
-    url = f
-    "https://www.reddit.com/r/{subreddit}/hot.json?limit=100&after={after}"
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=100&after={after}"
     headers = {'User-Agent': 'Mozilla/5.0'}  # Setting a custom User-Agent
 
     response = requests.get(url, headers=headers)
