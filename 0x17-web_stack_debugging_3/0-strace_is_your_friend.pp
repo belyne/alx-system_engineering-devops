@@ -1,5 +1,5 @@
 # Define variables
-$file_to_edit = '/path/to/your/file'
+$file_to_edit = '/var/www/html/wp-settings.php'
 $line_to_replace = 'phpp'
 $replacement_line = 'php'
 
