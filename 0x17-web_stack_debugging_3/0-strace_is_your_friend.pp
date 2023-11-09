@@ -1,17 +1,10 @@
-# Define variables
+# web stack debugging using puppet
+
 $file_to_edit = '/var/www/html/wp-settings.php'
-$line_to_replace = 'phpp'
-$replacement_line = 'php'
 
-# Ensure the file exists
-file { $file_to_edit:
-  ensure => present,
-}
+#change the word "phpp" with "php"
 
-# Use Augeas to replace the specified line
-augeas { 'replace_line':
-  context => "/files${file_to_edit}",
-  changes => "set *[contains(text(), '${line_to_replace}')][last()] '${replacement_line}'",
-  onlyif  => "match *[contains(text(), '${line_to_replace}')] size > 0",
-  require => File[$file_to_edit],
+exec { 'typing_error':
+  command => "sed -i 's/phpp/php/g' ${file_to_edit}",
+  path    => ['/bin','/usr/bin']
 }
