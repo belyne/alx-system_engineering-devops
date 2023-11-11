@@ -6,3 +6,6 @@ sed -i 's/80 default/8000 default/' /etc/nginx/sites-available/default
 
 # Restart Nginx service
 service nginx restart
+
+#output a message of length 2
+echo "OK"
