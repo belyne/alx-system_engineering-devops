@@ -2,10 +2,8 @@
 # This script configures Nginx to listen on port 80.
 
 # Update Nginx configuration to listen on port 80
-sed -i 's/80 default/8000 default/' /etc/nginx/sites-available/default
+sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 # Restart Nginx service
-service nginx restart
+sudo service nginx restart
 
-#output a message of length 2
-echo "OK"

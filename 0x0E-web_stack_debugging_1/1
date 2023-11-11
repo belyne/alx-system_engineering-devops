@@ -1,1 +1,2 @@
-sudo: ervice: command not found
+ * Restarting nginx nginx
+   ...fail!
