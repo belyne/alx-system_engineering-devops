@@ -1,0 +1,25 @@
+#!/usr/bin/env nginx
+# Nginx configuration file for serving AirBnB clone page
+
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server ipv6only=on;
+
+    # IP of serever as domain name
+    server_name 54.237.17.183;
+
+    # Customized HTTP response header
+    ad_header X-served-By 306475-web-01;
+
+    # server /airbnb-onepage/  route from AirBnB_clone_v2
+    location = /airbnb-onepage/ {
+        proxy_pass http://127.0.0.1:5000/airbnb-onepage/;
+    }
+
+    # 404 error page
+    error_page 404 /404.html;
+    location  /404.html {
+        root /var/www/html;
+        internal;
+    }
+}
